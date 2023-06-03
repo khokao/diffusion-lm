@@ -86,3 +86,7 @@ For unconditional sampling, it's only necessary to train the Diffusion-LM (there
 ```bash
 accelerate launch scripts/sample.py --output output/foo
 ```
+
+---
+
+If you find this repository helpful, please consider giving a star :star:!
