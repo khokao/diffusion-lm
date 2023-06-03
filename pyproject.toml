@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "difflm"
+version = "0.0.0"
+description = "Unofficial implementation of Diffusion-LM"
+authors = ["Koki Hokao"]
+packages = [{ include = "difflm" }]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.10"
+accelerate = "*"
+datasets = "*"
+ema-pytorch = "*"
+matplotlib = "*"
+numpy = "*"
+PyYAML = "*"
+spacy = "*"
+torch = "==1.12.1"
+tqdm = "*"
+transformers = "*"
+urllib3 = "<=1.26.15"
+wandb = "*"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "*"
+flake8 = "*"
+flake8-isort = "*"
+flake8-quotes = "*"
+jupyter = "*"
+pep8-naming = "*"
+pyproject-flake8 = "*"
+seaborn = "*"
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+
+[tool.flake8]
+max-line-length = 120
+exclude = "*/__init__.py"
+ignore = "W503,N803,N806"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

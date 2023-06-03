@@ -1,0 +1,79 @@
+general:
+    seed: 42
+    output_root: ./output
+    dataset:
+      root: ./datasets
+      type: e2e
+
+model:
+    network:
+        transformer:
+            in_channels: 16
+            out_channels: 16
+            model_channels: 128
+            dropout: 0.1
+            seq_len: 64
+            bertmodel_config_name: bert-base-uncased
+    timesteps:
+        num: 2000
+        sample: uniform
+    beta:
+        schedule: sqrt
+        linear:
+            start: 0.0001
+            end: 0.02
+        cosine:
+            s: 0.008
+            max_beta: 0.999
+        sqrt:
+            s: 0.0001
+            max_beta: 0.999
+
+classifier:
+    gpt2model_config_name: gpt2
+    attr_seq_len: 8
+    timesteps:
+        num: 200
+        sample: uniform
+    trainer:
+        per_device_eval_batch_size: 10
+        per_device_train_batch_size: 10
+        dataloader_num_workers: 4
+        do_train: True
+        do_eval: True
+        eval_steps: 10000
+        evaluation_strategy: steps
+        num_train_epochs: 6.0
+        overwrite_output_dir: True
+        report_to: [wandb]
+        save_steps: 50000
+        save_total_limit: 1
+
+train:
+    epoch: 700
+    log_interval: 100
+    save_interval: 50
+    dataloader:
+        batch_size: 64
+        shuffle: True
+        num_workers: 4
+        pin_memory: True
+        drop_last: True
+    optimizer:
+        name: AdamW
+        params:
+            lr: 0.0001
+            weight_decay: 0.0
+    scheduler:
+        name: CosineAnnealingLR
+        params:
+            eta_min: 0
+    val:
+        interval: 10
+        use_ema: True
+        dataloader:
+            batch_size: 64
+            shuffle: False
+            num_workers: 4
+            pin_memory: True
+            drop_last: False
